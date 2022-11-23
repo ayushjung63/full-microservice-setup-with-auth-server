@@ -3,12 +3,11 @@ package com.ayush.userservice.service.impl;
 import com.ayush.userservice.entity.Account;
 import com.ayush.userservice.entity.User;
 import com.ayush.userservice.pojos.ResponsePojo;
+import com.ayush.userservice.pojos.UserPojo;
 import com.ayush.userservice.proxy.AccountServiceData;
-import com.ayush.userservice.proxy.AccountServiceProxy;
 import com.ayush.userservice.repo.UserRepo;
 import com.ayush.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,5 +37,16 @@ public class UserServiceImpl implements UserService {
             );
         }
         return responsePojos;
+    }
+
+    @Override
+    public UserPojo getUserDetailById(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(
+                () -> new RuntimeException("Student Not Found")
+        );
+        return UserPojo.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .build();
     }
 }

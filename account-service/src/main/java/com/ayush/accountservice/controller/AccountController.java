@@ -2,6 +2,7 @@ package com.ayush.accountservice.controller;
 
 import com.ayush.accountservice.GlobalApiResponse;
 import com.ayush.accountservice.repo.AccountRepo;
+import com.ayush.accountservice.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AccountController extends BaseController {
 
-    private final AccountRepo accountRepo;
+    private final AccountService accountService;
 
     @GetMapping("/user-id/{userId}")
     private ResponseEntity<GlobalApiResponse> fetchAccountDetailByUserId(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(
-                successResponse("Account detail fetched",accountRepo.findByUserId(userId))
+                successResponse("Account detail fetched",accountService.getAccountDetailByUserId(userId))
         );
     }
+
 }
