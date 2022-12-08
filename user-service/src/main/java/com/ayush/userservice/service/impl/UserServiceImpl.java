@@ -8,6 +8,7 @@ import com.ayush.userservice.proxy.AccountServiceData;
 import com.ayush.userservice.repo.UserRepo;
 import com.ayush.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final AccountServiceData accountServiceData;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<ResponsePojo> getAccountDetailByUserId(Long userId) {
@@ -48,5 +50,20 @@ public class UserServiceImpl implements UserService {
                 .id(user.getId())
                 .name(user.getName())
                 .build();
+    }
+
+    @Override
+    public Long createUser(UserPojo userPojo) {
+        User user= User.builder()
+                .name(userPojo.getName())
+                .email(userPojo.getEmail())
+                .password(passwordEncoder.encode(userPojo.getPassword()))
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .active(true)
+                .credentialsNonExpired(true)
+                .build();
+        User user1 = userRepo.save(user);
+        return  user1.getId();
     }
 }

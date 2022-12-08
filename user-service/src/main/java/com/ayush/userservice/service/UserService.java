@@ -8,4 +8,6 @@ public interface UserService {
     List<ResponsePojo> getAccountDetailByUserId(Long userId);
 
     UserPojo getUserDetailById(Long userId);
+
+    Long createUser(UserPojo userPojo);
 }
