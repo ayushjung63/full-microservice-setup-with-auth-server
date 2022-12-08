@@ -24,4 +24,11 @@ public class AccountController extends BaseController {
         );
     }
 
+    @GetMapping()
+    private ResponseEntity<GlobalApiResponse> helloWorld(){
+        return ResponseEntity.ok(
+                successResponse("Hello World",null)
+        );
+    }
+
 }

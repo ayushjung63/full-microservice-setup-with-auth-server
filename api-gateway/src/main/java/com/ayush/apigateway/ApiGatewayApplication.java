@@ -7,6 +7,8 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
+import java.net.http.HttpClient;
+
 @EnableEurekaClient
 @SpringBootApplication
 public class ApiGatewayApplication {
@@ -19,8 +21,9 @@ public class ApiGatewayApplication {
 	public RouteLocator routeLocator(RouteLocatorBuilder builder){
 		return builder.routes()
 				.route(p->
-						p.path("/account/**")
-								.uri("lb://ACCOUNT-SERVICE/")
+						p.path("/login")
+								.filters(f->f.rewritePath("/login","/oauth/token"))
+								.uri("lb://user-service")
 				)
 				.route(p->
 						p.path("/get")
@@ -28,5 +31,10 @@ public class ApiGatewayApplication {
 				)
 				.build();
 	}
+
+/*	@Bean
+	public HttpClient httpClient() {
+		return HttpClient.create().resolver(DefaultAddressResolverGroup.INSTANCE);
+	}*/
 
 }
