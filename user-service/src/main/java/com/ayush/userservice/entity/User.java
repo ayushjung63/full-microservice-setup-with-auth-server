@@ -4,19 +4,29 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
-    @SequenceGenerator(name = "user_seq",sequenceName = "user_seq",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
+
+    private String address;
+
+    private String email;
+
+    private String password;
+
+    private boolean active;
+
+    private boolean accountNonExpired;
+    private boolean credentialsNonExpired;
+    private boolean accountNonLocked;
 }

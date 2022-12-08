@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -24,7 +23,6 @@ public class UserServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userRepo.save(User.builder().name("Ayush").build());
-		userRepo.save(User.builder().name("Shady").build());
+		userRepo.save(User.builder().email("admin@gmail.com").password("$2a$12$EWEM2Nes6vYx1f/1XM0ai.yFMf3ysHuZK1RqzDNj5Z1.9tQ2.Wi1y").build());
 	}
 }
